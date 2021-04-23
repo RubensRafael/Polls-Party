@@ -43,7 +43,7 @@ export default class Request{
 	listPolls(){
 
 		
-		return [true,polls]
+		return [false,polls]
 	}
 
 }

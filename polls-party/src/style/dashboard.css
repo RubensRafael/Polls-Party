@@ -62,3 +62,9 @@
 	text-align: center;
 	color: #ffea1d;
 }
+.dashboard-warn{
+	grid-column-start: 1;
+	grid-column-end: 3;
+	text-align: center;
+	color: #ffea1d;
+}

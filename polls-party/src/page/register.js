@@ -29,7 +29,8 @@ import { withRouter } from 'react-router-dom';
 
 
 
-	async handleClick(){
+	async handleClick(e){
+		e.preventDefault()
 		if(this.state.nameIsOk === true && this.state.emailIsOk === true && this.state.pwIsOk === true){
 			
 			let req = new Request()
@@ -63,7 +64,18 @@ import { withRouter } from 'react-router-dom';
 
 	}
 
+	componentDidMount(){
+		let routingFunction = (param) => {
+			this.props.history.push({
+	    		pathname: `/dashboard`,
+	    		state: param
+			});
+		}
 
+		if(localStorage.getItem('token') !== null){
+    		 routingFunction()
+    	}
+	}
 
 	render(){
 
@@ -86,14 +98,14 @@ import { withRouter } from 'react-router-dom';
 			<>
 				<Header></Header>
 				<div id='register-container'>
-					<main id='register-box'>
+					<form onSubmit={this.handleClick} id='register-box'>
 						<h2>Fill up the fields to register your account!</h2>
 						{span}
 						<NameInput verif={this.handleChange}></NameInput>
 						<EmailInput verif={this.handleChange}></EmailInput>
 						<PasswordInput verif={this.handleChange}></PasswordInput>
-						<div onClick={this.handleClick} id={clickOpen ? 'can-send' : ''} className='hover-button register-button'><h2>Send</h2></div>	
-					</main>
+						<input type="submit" value="Send" id={clickOpen ? 'can-send' : ''} className='hover-button register-button'></input>	
+					</form>
 				</div>
 				
 				

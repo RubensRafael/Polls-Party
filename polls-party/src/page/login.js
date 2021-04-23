@@ -27,9 +27,9 @@ import { withRouter } from 'react-router-dom';
 
 
 
-	async handleClick(){
+	async handleClick(e){
 		
-			
+			e.preventDefault()
 			let req = new Request()
 			let res = await req.login(this.state.name,this.state.pw)
 			console.log(res)
@@ -59,6 +59,18 @@ import { withRouter } from 'react-router-dom';
 	}
 
 
+	componentDidMount(){
+		let routingFunction = (param) => {
+			this.props.history.push({
+	    		pathname: `/dashboard`,
+	    		state: param
+			});
+		}
+
+		if(localStorage.getItem('token') !== null){
+    		 routingFunction()
+    	}
+	}
 
 	render(){
 
@@ -73,13 +85,13 @@ import { withRouter } from 'react-router-dom';
 			<>
 				<Header></Header>
 				<div id='register-container'>
-					<main id='register-box'>
+					<form onSubmit={this.handleClick} id='register-box'>
 						<h2>Send your username and password to login.</h2>
 						{span}
 						<NameInput verif={this.handleChange}></NameInput>
 						<PasswordInput verif={this.handleChange}></PasswordInput>
-						<div onClick={this.handleClick} id='can-send' className='hover-button register-button'><h2>Send</h2></div>	
-					</main>
+						<input type="submit" value="Send" id='can-send' className='hover-button register-button'></input>	
+					</form>
 				</div>
 				
 				

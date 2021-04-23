@@ -31,6 +31,19 @@ import { withRouter } from 'react-router-dom';
 
 	async componentDidMount(){
 
+		
+		let routingFunction = (param) => {
+			this.props.history.push({
+	    		pathname: `/login`,
+	    		state: param
+			});
+		}
+
+		if(localStorage.getItem('token') === null){
+    		 routingFunction()
+    	}
+	
+
 		let req = new Request()
 		let res = await req.listPolls()
 		
@@ -46,7 +59,7 @@ import { withRouter } from 'react-router-dom';
 		let display;
 		polls = polls ? this.state.polls : []
 		if(polls.length === 0){
-			display = <div>AAAAA</div>
+			display = <div className="dashboard-warn">Nothing here. Try create a new poll.</div>
 		}else{
 			display = polls.map((item,index)=>{
 
