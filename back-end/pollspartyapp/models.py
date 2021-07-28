@@ -14,7 +14,8 @@ class Poll(models.Model):
 
 
 class Option(models.Model):
-    poll = models.ForeignKey(Poll,related_name='options',on_delete=models.CASCADE)
-    votes = models.IntegerField(default=0)
     answer = models.TextField()
-
+    votes = models.IntegerField(default=0)
+    is_all = models.BooleanField(default=False)
+    is_any = models.BooleanField(default=False)
+    poll = models.ForeignKey(Poll,related_name='options',on_delete=models.CASCADE)
