@@ -1,7 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 class Poll(models.Model):
     question = models.TextField()
@@ -19,3 +27,14 @@ class Option(models.Model):
     is_all = models.BooleanField(default=False)
     is_any = models.BooleanField(default=False)
     poll = models.ForeignKey(Poll,related_name='options',on_delete=models.CASCADE)
+
+class ControlField(models.Model):
+    control_field = models.CharField(max_length=255,default='None')
+    option = models.ForeignKey(Option,related_name='controllers',on_delete=models.CASCADE,null=True)
+
+
+
+    
+
+
+
