@@ -1,10 +1,15 @@
 from rest_framework import serializers
-from pollspartyapp.models import Poll, Option, ControlField
+from pollspartyapp.models import Poll, Option, ControlField,PollToken
 
 class ControlSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ControlField
 		fields = ['control_field']
+
+class TokenSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = PollToken
+		fields = ['token']
 
 class OptionSerializer(serializers.ModelSerializer):
 	
@@ -18,6 +23,7 @@ class OptionSerializer(serializers.ModelSerializer):
 			existing = set(self.fields)
 			for field_name in existing - allowed:
 				self.fields.pop(field_name)
+
 	controllers = ControlSerializer(many=True, read_only=True)
 	class Meta:
 		model = Option
@@ -38,6 +44,7 @@ class PollSerializer(serializers.ModelSerializer):
 	
 
 	options = OptionSerializer(many=True, read_only=True,fields=('id','answer','votes'))
+	token = TokenSerializer(read_only=True)
 	class Meta:
 		model = Poll
-		fields = ['id','question', 'total_votes', 'options','protect']
+		fields = ['id','question', 'total_votes', 'options','expires_in','token']

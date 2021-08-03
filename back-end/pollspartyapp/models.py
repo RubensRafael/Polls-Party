@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -17,6 +18,7 @@ class Poll(models.Model):
     all_options = models.BooleanField(default=False)
     anyone_options = models.BooleanField(default=False)
     protect = models.BooleanField(default=False)
+    expires_in = models.IntegerField(null=True) 
 
     user = models.ForeignKey(User,related_name='polls',on_delete=models.CASCADE)
 
@@ -31,6 +33,11 @@ class Option(models.Model):
 class ControlField(models.Model):
     control_field = models.CharField(max_length=255,default='None')
     option = models.ForeignKey(Option,related_name='controllers',on_delete=models.CASCADE,null=True)
+
+class PollToken(models.Model):
+    token = models.CharField(max_length=255,default='none')
+    time = models.DateTimeField(default=timezone.now)
+    poll = models.OneToOneField(Poll,on_delete=models.SET_NULL,null=True,related_name='token')
 
 
 
