@@ -1,0 +1,131 @@
+/*
+  amarelo:  #ffea1d
+  roxo:  #5a239c 
+ */
+
+body{
+	background-color: rgba(90,35,156,0.81);/*Mesma cor roxa, com 81 de transparencia no rgb*/
+	font-family: monaco, Consolas, "Lucida Console", monospace
+}
+
+.home-header{
+	display: flex;
+	width: 100%;
+	height: 10vh;
+	background-color: #5a239c;
+	border-bottom: solid 2px #ffea1d;
+}
+
+.home-main{
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	align-content: center;
+}
+
+.question-box{
+	height: 200px;
+	width: 50%;
+	margin: 10%;
+	/*background-color: white;*/
+	border: solid 2px white;
+	border-radius: 10%;
+
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.question-box > :nth-child(1){
+	color: white;
+	border-bottom: solid 1px #ffea1d;
+	width: 100%;
+	text-align: center;
+}
+/*HOOME BUTTON*/
+.home-button{
+	color: white;
+	position: relative;
+	width: 50%;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 5%;
+}
+
+
+.home-button::before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	border-top: solid 1px white;
+	border-left: solid 1px white;
+	animation: ButtonSlideOut linear 0.25s;
+}
+
+.home-button::after{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	border-bottom: solid 1px white;
+	border-right: solid 1px white;
+	animation: ButtonSlideOut linear 0.25s;
+}
+
+.home-button:hover::before, .home-button:focus::before, .home-button:hover::after, .home-button:focus::after{
+	animation: ButtonSlideIn linear 0.25s ;
+}
+
+@keyframes ButtonSlideIn{
+	0%{
+			height: 0%;
+			width: 0%;
+	}
+	100%{
+			height: 100%;
+			width: 100%;
+	}
+}
+
+@keyframes ButtonSlideOut{
+	0%{
+			height: 100%;
+			width: 100%;
+	}
+	100%{
+			height: 0%;
+			width: 0%;
+	}
+}
+
+
+@media (max-width: 991.98px) {
+	.home-main{
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+	}
+	.question-box{
+			height: 40vw;
+			width: 100%;
+			margin: 5%;
+			/*background-color: white;*/
+			border: solid 2px white;
+			border-radius: 7%;
+			align-self: center;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+	}
+}
