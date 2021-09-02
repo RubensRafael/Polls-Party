@@ -40,7 +40,7 @@ body{
 
 .question-box > :nth-child(1){
 	color: white;
-	border-bottom: solid 1px #ffea1d;
+	border-bottom: solid 2px #ffea1d;
 	width: 100%;
 	text-align: center;
 }
@@ -128,4 +128,18 @@ body{
 			justify-content: space-around;
 			align-items: center;
 	}
+}
+
+
+	
+#background-box{
+	height: 30vh;
+	background-repeat: repeat;
+	color: white;
+	display:  flex;
+	justify-content: space-around;
+	align-items: center;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: #ffea1d;
+	text-align: center;
 }

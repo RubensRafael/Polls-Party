@@ -9,13 +9,17 @@ import '../style/home.css';
 		)
 	}
 }*/
-
+var back = process.env.PUBLIC_URL + 'teste.gif';
 export default class Home extends React.Component{
 
 	render(){
+		
 		return(
 			<>
 				<Header></Header>
+				<div id='background-box' style={{backgroundImage:`url(${back})`}}>
+					<h1>Welcome to Polls Party!<br></br>Ask and answer everything.</h1>
+				</div>	
 				<main className="home-main">
 					<BoxQuestion></BoxQuestion>
 					<AnswerQuestion></AnswerQuestion>
