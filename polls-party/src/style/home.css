@@ -143,3 +143,22 @@ body{
 	-webkit-text-stroke-color: #ffea1d;
 	text-align: center;
 }
+
+
+
+#code-input{
+	background: rgba(0,0,0,0);
+	width: 50%;
+	border: none;
+	border-bottom: solid white 1px;
+	color: white;
+	font-size: 1.17em;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+#code-input:focus{
+	outline:  none;
+	border:  none;
+	border-bottom: solid white 1px;
+}

@@ -1,4 +1,7 @@
 import React  from 'react';
+import { withRouter } from 'react-router-dom';
+import BoxQuestion from '../components/boxquestion';
+import AnswerQuestion from '../components/boxanswer';
 import '../style/home.css';
 
 
@@ -9,11 +12,14 @@ import '../style/home.css';
 		)
 	}
 }*/
+
 var back = process.env.PUBLIC_URL + 'teste.gif';
-export default class Home extends React.Component{
+class Home extends React.Component{
+
+
 
 	render(){
-		
+
 		return(
 			<>
 				<Header></Header>
@@ -27,7 +33,22 @@ export default class Home extends React.Component{
 			</>
 		)
 	}
+
+	componentDidMount(){
+		let routingFunction = (param) => {
+			this.props.history.push({
+	    		pathname: `/dashboard`,
+	    		state: param
+			});
+		}
+
+		if(localStorage.getItem('token') !== null){
+    		 routingFunction()
+    	}
+	}
 }
+
+export default withRouter(Home);
 
 class Header extends React.Component {
 
@@ -40,30 +61,6 @@ class Header extends React.Component {
 	}
 }
 
-class BoxQuestion extends React.Component {
-	render(){
-		return(
-			<div className="question-box">
-				<h2>Ask something.</h2>
-				<div className="home-button">
-					<h3>AAAAA</h3>
-				</div>
-			</div>
-		)
-	}
 
-}
 
-class AnswerQuestion extends React.Component {
-	render(){
-		return(
-			<div className="question-box">
-				<h2>Answer something.</h2>
-				<div className="home-button">
-					<h3>AAAAA</h3>
-				</div>
-			</div>
-		)
-	}
 
-}
