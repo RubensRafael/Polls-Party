@@ -1,12 +1,6 @@
-/*
-  amarelo:  #ffea1d
-  roxo:  #5a239c 
- */
 
-body{
-	background-color: rgba(90,35,156,0.81);/*Mesma cor roxa, com 81 de transparencia no rgb*/
-	font-family: monaco, Consolas, "Lucida Console", monospace
-}
+
+
 
 .home-header{
 	display: flex;

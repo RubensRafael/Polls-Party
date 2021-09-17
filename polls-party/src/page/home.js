@@ -2,6 +2,7 @@ import React  from 'react';
 import { withRouter } from 'react-router-dom';
 import BoxQuestion from '../components/boxquestion';
 import AnswerQuestion from '../components/boxanswer';
+import Header from '../components/header';
 import '../style/home.css';
 
 
@@ -50,16 +51,7 @@ class Home extends React.Component{
 
 export default withRouter(Home);
 
-class Header extends React.Component {
 
-	render(){
-		return(
-			<header className="home-header"></header>
-
-			)
-
-	}
-}
 
 
 

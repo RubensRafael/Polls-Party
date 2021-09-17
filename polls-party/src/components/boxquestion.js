@@ -9,7 +9,8 @@ class BoxQuestion extends React.Component {
 	}
 
 	handleClick(e){
-		let to = e.target.children[0].lastChild.data.toLowerCase()
+		//let to = e.target.children[0].lastChild.data.toLowerCase()
+		let to = e.target.outerText.toLowerCase()
 		
 		let routingFunction = (param) => {
 			this.props.history.push({
