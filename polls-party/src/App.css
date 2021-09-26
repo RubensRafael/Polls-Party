@@ -13,3 +13,57 @@ body{
   background-color: rgba(90,35,156,0.81);/*Mesma cor roxa, com 81 de transparencia no rgb*/
   font-family: monaco, Consolas, "Lucida Console", monospace;
 }
+
+
+
+
+
+.hover-button::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-top: solid 1px white;
+  border-left: solid 1px white;
+  animation: ButtonSlideOut linear 0.25s;
+}
+
+.hover-button::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  border-bottom: solid 1px white;
+  border-right: solid 1px white;
+  animation: ButtonSlideOut linear 0.25s;
+}
+
+.hover-button:hover::before, .hover-button:focus::before, .hover-button:hover::after, .hover-button:focus::after{
+  animation: ButtonSlideIn linear 0.25s ;
+}
+
+@keyframes ButtonSlideIn{
+  0%{
+      height: 0%;
+      width: 0%;
+  }
+  100%{
+      height: 100%;
+      width: 100%;
+  }
+}
+
+@keyframes ButtonSlideOut{
+  0%{
+      height: 100%;
+      width: 100%;
+  }
+  100%{
+      height: 0%;
+      width: 0%;
+  }
+}

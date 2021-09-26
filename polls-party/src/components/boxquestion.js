@@ -25,10 +25,10 @@ class BoxQuestion extends React.Component {
 		return(
 			<div className="question-box">
 				<h2>Ask something.</h2>
-				<div onClick={this.handleClick} className="home-button">
+				<div onClick={this.handleClick} className="hover-button home-button">
 					<h3>REGISTER</h3>
 				</div>
-				<div onClick={this.handleClick} className="home-button">
+				<div onClick={this.handleClick} className="hover-button home-button">
 					<h3>LOGIN</h3>
 				</div>
 			</div>

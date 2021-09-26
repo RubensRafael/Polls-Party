@@ -7,7 +7,7 @@ class AnswerQuestion extends React.Component {
 			<div className="question-box">
 				<h2>Answer something.</h2>
 				<input id="code-input" type="text" maxLength='6'></input>
-				<div className="home-button">
+				<div className="hover-button home-button">
 					<h3>AAAAA</h3>
 				</div>
 			</div>
