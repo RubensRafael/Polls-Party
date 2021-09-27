@@ -10,7 +10,8 @@ export default class EmailInput extends React.Component {
 
 		handleChange(e){
 			let inputEmail = e.target.value
-			let regex = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:[a-zA-Z0-9-]+)*$")
+			//eslint-disable-next-line
+			let regex = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
 			
 
 			if(!(regex.test(inputEmail))){
