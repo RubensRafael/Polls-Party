@@ -1,29 +1,27 @@
 import axios from 'axios';
 
-
+var key = 'Token ' + process.env.REACT_APP_API
 export default class Request{
 
-	async safeCreat(name,email){
-		await axios.post('https://polls-party-api.herokuapp.com/api/v1/user/verif',{
+	async create(name,email,password){
+		let response
+		await axios.post('https://polls-party-api.herokuapp.com/api/v1/user/create',{
 			'username': name,
 			'email': email,
-		},{headers:{'Authorization':'Token '}})
+			'password': password
+		},{headers:{'Authorization': key }})
 		.then((res)=>{
-			return [true,res.data]
+
+			response = [true,res.data]
 		})
 		.catch((err)=>{
-			return [false,err.res.data]
+			
+			response = [false,err.response.data]
 		})
-	}
-	safeCreate(name,email){
-		console.log(name,email)
-		return [true,{'email':false}]
+
+		return response
 	}
 
-
-	create(){
-		return [false]
-	}
 }
 
 

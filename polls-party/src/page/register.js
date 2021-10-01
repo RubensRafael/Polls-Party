@@ -4,19 +4,19 @@ import EmailInput from '../components/registeremail';
 import PasswordInput from '../components/registerpw';
 import Header from '../components/header';
 import '../style/register.css';
-import Request from '../requets'
+import Request from '../requets';
+import { withRouter } from 'react-router-dom';
 
 
 
 
 
-export default class Register extends React.Component{
+ class Register extends React.Component{
 
 	constructor(props){
 		super(props)
 		this.handleChange = this.handleChange.bind(this)
 		this.handleClick = this.handleClick.bind(this)
-		this.createUser = this.createUser.bind(this)
 		this.cancelToken = undefined
 		this.state = {'name':undefined,'nameError':undefined,'nameIsOk':false,
 					'email':undefined,'emailError':undefined,'emailIsOk':false,
@@ -27,30 +27,27 @@ export default class Register extends React.Component{
 	}
 
 
-	createUser(){
-		let req = new Request()
-		let res = req.create(this.state.name,this.state.email,this.state.pw)
 
-		if(res[0] === true){
-			console.log('redireciona carai')
-			this.setState({'reqError' : false})
-		}else{
-			this.setState({'reqError':'Something error hapens, try again'})
-		}
-	}
 
-	handleClick(){
+	async handleClick(){
 		if(this.state.nameIsOk === true && this.state.emailIsOk === true && this.state.pwIsOk === true){
 			
 			let req = new Request()
-			let res = req.safeCreate(this.state.email)
+			let res = await req.create(this.state.name,this.state.email,this.state.pw)
 			
-			if(res[0] === true){
 
-				res[1].email ? this.setState({'emailIsOk':false,'emailError':'Email adress alredy exists.','reqError' : false}) : this.createUser()
+			if(res[0] === true){
+				
+				this.setState({'reqError' : false})
+				let routingFunction = (param) => {
+					this.props.history.push({pathname: `/dashboard`,state: param});
+				}
+				routingFunction()
 			}else{
-				this.setState({'reqError':'Something error hapens, try again'})
+				this.setState({'reqError': res[1].error})
 			}
+			
+			
 		}
 		
 	}
@@ -63,12 +60,8 @@ export default class Register extends React.Component{
 		}else if(who === 'pw'){
 			this.setState({'pw':value,'pwError':error,'pwIsOk':ok})
 		}
-		
-		
 
 	}
-
-
 
 
 
@@ -108,6 +101,8 @@ export default class Register extends React.Component{
 		)
 	}
 }
+
+export default withRouter(Register)
 
 
 
