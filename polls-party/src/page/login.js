@@ -1,6 +1,5 @@
 import React  from 'react';
 import NameInput from '../components/registername';
-import EmailInput from '../components/registeremail';
 import PasswordInput from '../components/registerpw';
 import Header from '../components/header';
 import '../style/register.css';
@@ -73,14 +72,15 @@ import { withRouter } from 'react-router-dom';
 		return(
 			<>
 				<Header></Header>
-				<main id='register-box'>
-					<h2>Send your username and password to login.</h2>
-					{span}
-					<NameInput verif={this.handleChange}></NameInput>
-					<PasswordInput verif={this.handleChange}></PasswordInput>
-					<div onClick={this.handleClick} id='can-send' className='hover-button register-button'><h2>Send</h2></div>	
-				</main>
-				
+				<div id='register-container'>
+					<main id='register-box'>
+						<h2>Send your username and password to login.</h2>
+						{span}
+						<NameInput verif={this.handleChange}></NameInput>
+						<PasswordInput verif={this.handleChange}></PasswordInput>
+						<div onClick={this.handleClick} id='can-send' className='hover-button register-button'><h2>Send</h2></div>	
+					</main>
+				</div>
 				
 				
 

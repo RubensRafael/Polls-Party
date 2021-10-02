@@ -23,7 +23,7 @@
 	margin: 10%;
 	/*background-color: white;*/
 	border: solid 2px white;
-	border-radius: 10%;
+	
 
 
 	display: flex;
@@ -53,17 +53,17 @@
 	.home-main{
 			display: flex;
 			width: 100%;
-			justify-content: space-between;
+			justify-content: center;
 			align-items: center;
-			flex-wrap: wrap;
+			flex-direction: column;
 	}
 	.question-box{
 			height: 40vw;
-			width: 100%;
+			width: 60%;
 			margin: 5%;
 			/*background-color: white;*/
 			border: solid 2px white;
-			border-radius: 7%;
+			
 			align-self: center;
 
 			display: flex;
@@ -76,7 +76,8 @@
 
 	
 #background-box{
-	height: 30vh;
+	height: 15vh;
+	min-height: 100px;
 	background-repeat: repeat;
 	color: white;
 	display:  flex;

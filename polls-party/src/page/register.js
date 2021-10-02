@@ -85,15 +85,16 @@ import { withRouter } from 'react-router-dom';
 		return(
 			<>
 				<Header></Header>
-				<main id='register-box'>
-					<h2>Fill up the fields to register your account!</h2>
-					{span}
-					<NameInput verif={this.handleChange}></NameInput>
-					<EmailInput verif={this.handleChange}></EmailInput>
-					<PasswordInput verif={this.handleChange}></PasswordInput>
-					<div onClick={this.handleClick} id={clickOpen ? 'can-send' : ''} className='hover-button register-button'><h2>Send</h2></div>	
-				</main>
-				
+				<div id='register-container'>
+					<main id='register-box'>
+						<h2>Fill up the fields to register your account!</h2>
+						{span}
+						<NameInput verif={this.handleChange}></NameInput>
+						<EmailInput verif={this.handleChange}></EmailInput>
+						<PasswordInput verif={this.handleChange}></PasswordInput>
+						<div onClick={this.handleClick} id={clickOpen ? 'can-send' : ''} className='hover-button register-button'><h2>Send</h2></div>	
+					</main>
+				</div>
 				
 				
 
