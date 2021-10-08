@@ -40,7 +40,40 @@ export default class Request{
 		return response
 	}
 
+	listPolls(){
+
+		
+		return [true,polls]
+	}
 
 }
 
-
+var polls = [
+  {
+    "id": 1,
+    "question": "Testando control filed",
+    "total_votes": 0,
+    "token": "ASFSAF"
+  },  {
+    "id": 1,
+    "question": "Testando control filed",
+    "total_votes": 0,
+    "token": "ASFSAF"
+  },  {
+    "id": 1,
+    "question": "Testando control filed",
+    "total_votes": 0,
+    "token": "ASFSAF"
+  },  {
+    "id": 1,
+    "question": "Testando control filed",
+    "total_votes": 0,
+    "token": "ASFSAF"
+  },  {
+    "id": 1,
+    "question": "Testando control filed",
+    "total_votes": 0,
+    "token": "ASFSAF"
+  },
+  
+]

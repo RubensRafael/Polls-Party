@@ -1,0 +1,64 @@
+.dashboard{
+	display: grid;
+	width: 60%;
+	margin-right: 20%;
+	margin-left: 20%;
+	border-right: #ffea1d 2px solid;
+	border-left: #ffea1d 2px solid;
+	padding-top: 3%;
+	justify-content: space-around;
+	align-items: center;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: 1fr;
+	grid-auto-columns: 1fr;
+	grid-gap: 10%;
+}
+
+.newpoll-button{
+	position: relative;
+	color: white;
+	cursor: pointer;
+	width: 60%;
+	margin-left: 20%;
+	text-align: center;
+}
+
+.dashboard-input{
+	text-align: center;
+	
+
+}
+.dashboard-input > :nth-child(2){
+	font-size: 1.17em;
+	border: white 1px solid;
+}
+
+.list-item{
+	grid-column-start: 1;
+	grid-column-end: 3;
+	text-align: center;
+	display: grid;
+	grid-template-columns: 60% 15% 7.5% 7.5%;
+	justify-content: space-between;
+	color: white;
+	padding: 3% 3% 0% 3%;
+	
+}
+
+.list-item > p{
+	overflow :hidden;
+}
+.first-item{
+	border-top: #ffea1d 2px solid;
+}
+.poll-info{
+	border: white 1px solid;
+}
+
+.welcome{
+	grid-row-start: 1;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	text-align: center;
+	color: #ffea1d;
+}

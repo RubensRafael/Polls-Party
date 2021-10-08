@@ -3,6 +3,7 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Home from './page/home';
 import Register from './page/register';
 import Login from './page/login';
+import Dashboard from './page/dashboard';
 
 
 function Routers(){
@@ -17,6 +18,9 @@ function Routers(){
                 </Route>
                 <Route path='/login' exact>
                     <Login></Login>
+                </Route>
+                <Route path='/dashboard' exact>
+                    <Dashboard></Dashboard>
                 </Route>
             </Switch>
         </BrowserRouter>
