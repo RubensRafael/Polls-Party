@@ -45,7 +45,7 @@ import { withRouter } from 'react-router-dom';
 	
 
 		let req = new Request()
-		let res = await req.listPolls()
+		let res = await req.listPolls(localStorage.getItem('token'))
 		
 		res[0] === true ? this.setState({'polls':res[1],'error':false}) : this.setState({'error':true, 'polls': false})
 	}
@@ -53,29 +53,38 @@ import { withRouter } from 'react-router-dom';
 
 	render(){
 
-		console.log(this.state.polls)
+		
 
 		let polls = this.state.polls
-		let display;
+		let display = [];
 		polls = polls ? this.state.polls : []
 		if(polls.length === 0){
 			display = <div className="dashboard-warn">Nothing here. Try create a new poll.</div>
 		}else{
-			display = polls.map((item,index)=>{
+			display =<>
+				{
+					polls.map((item,index)=>{
 
-			let question = <>
-					
-					<div key={item.token} className={index === 0 ?"list-item first-item":"list-item"}>
-						<p className="poll-info">{item.question}</p>
-						<div className="poll-info">{item.token}</div>
-						<div className="poll-info">{item.total_votes}</div>
-						<div className="poll-info">entrar</div>
-					</div>
-				</>
+					let question = 
+							
+							<div  className={index === 0 ?"list-item first-item":"list-item"}>
+								<p className="poll-info">{item.question}</p>
+								<div className="poll-info">{item.token.token}</div>
+								<div className="poll-info">{item.total_votes}</div>
+								<div className="poll-info">entrar</div>
+							</div>
+						
 
-			return question
-			})
+					return question
+					})
+				}
+
+
+			</>
+
+
 		}
+
 
 		
 
@@ -91,9 +100,6 @@ import { withRouter } from 'react-router-dom';
 						<input type="submit" value="GO!"></input>
 					</form>
 					{display}
-
-
-
 				</main>
 			</>
 		)

@@ -4,6 +4,7 @@ import Home from './page/home';
 import Register from './page/register';
 import Login from './page/login';
 import Dashboard from './page/dashboard';
+import Create from './page/create';
 
 
 function Routers(){
@@ -21,6 +22,9 @@ function Routers(){
                 </Route>
                 <Route path='/dashboard' exact>
                     <Dashboard></Dashboard>
+                </Route>
+                <Route path='/create' exact>
+                    <Create></Create>
                 </Route>
             </Switch>
         </BrowserRouter>

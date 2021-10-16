@@ -40,40 +40,21 @@ export default class Request{
 		return response
 	}
 
-	listPolls(){
+	async listPolls(user_token){
+		let response
+		await axios.get('https://polls-party-api.herokuapp.com/api/v1/polls/question-token-total_votes',{headers:{'Authorization': `Token ${user_token}`}})
+		.then((res)=>{
 
+			response = [true,res.data]
+		})
+		.catch((err)=>{
+			
+			response = [false,err.response.data]
+		})
 		
-		return [false,polls]
+
+		return response
 	}
 
 }
 
-var polls = [
-  {
-    "id": 1,
-    "question": "Testando control filed",
-    "total_votes": 0,
-    "token": "ASFSAF"
-  },  {
-    "id": 1,
-    "question": "Testando control filed",
-    "total_votes": 0,
-    "token": "ASFSAF"
-  },  {
-    "id": 1,
-    "question": "Testando control filed",
-    "total_votes": 0,
-    "token": "ASFSAF"
-  },  {
-    "id": 1,
-    "question": "Testando control filed",
-    "total_votes": 0,
-    "token": "ASFSAF"
-  },  {
-    "id": 1,
-    "question": "Testando control filed",
-    "total_votes": 0,
-    "token": "ASFSAF"
-  },
-  
-]
