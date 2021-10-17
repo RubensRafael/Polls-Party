@@ -1,0 +1,79 @@
+main{
+	width: 50%;
+	margin-right: 25%;
+	margin-left: 25%;
+	margin-bottom: 10%;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+h3{
+	color: white;
+	text-align: center;
+}
+
+.textarea-box{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 3fr 1fr;
+}
+
+textarea{
+	background-color: #5a239c;
+	color: white;
+	resize: none;
+}
+textarea:focus{
+	outline: none;
+	border: solid 1px white;
+}
+
+.add-or-del-box{
+	display: flex;
+	justify-content: space-around;
+}
+
+.control-button{
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	margin: 5px;
+    padding: 5px;
+}
+
+
+.control-button > :nth-child(2){
+	width: 32px;
+	height: 32px;
+	margin-left: 5px;
+
+}
+
+.add-button{
+	background-color: white;
+	color: #5a239c ;
+}
+
+.del-button{
+	background-color: #ffea1d;
+	color: #5a239c ;
+}
+.send-button{
+	position: relative;
+	align-self: center;
+	text-align: center;
+	width: 50%;
+	color: white;
+	font-size: 1.17em;
+	cursor: pointer;
+	margin-top: 5px;
+}
+
+@media (max-width: 991.98px){
+	main{
+		margin-right: 5%;
+		margin-left: 5%;
+		width:  90%;
+	}
+}

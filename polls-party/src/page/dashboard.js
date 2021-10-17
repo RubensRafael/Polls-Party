@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 
 
-
+var arrowIcon = process.env.PUBLIC_URL + 'arrow-icon.svg';
  class Dashboard extends React.Component{
 
 	constructor(props){
@@ -22,7 +22,15 @@ import { withRouter } from 'react-router-dom';
 
 
 	handleClick(e){
-		e.preventDefault()
+		let routingFunction = (param) => {
+			this.props.history.push({
+	    		pathname: `/create`,
+	    		state: param
+			});
+		}
+		routingFunction()
+    	
+
 		
 		
 	}
@@ -68,10 +76,10 @@ import { withRouter } from 'react-router-dom';
 					let question = 
 							
 							<div  className={index === 0 ?"list-item first-item":"list-item"}>
-								<p className="poll-info">{item.question}</p>
+								<p className="poll-info poll-text">{item.question}</p>
 								<div className="poll-info">{item.token.token}</div>
 								<div className="poll-info">{item.total_votes}</div>
-								<div className="poll-info">entrar</div>
+								<img src={arrowIcon} alt="arrow icon" className="poll-info arrow"></img>
 							</div>
 						
 
@@ -94,8 +102,8 @@ import { withRouter } from 'react-router-dom';
 				<Header></Header>
 				<main className='dashboard'>
 					<h3 className="welcome">See yours created polls</h3>
-					<div className='hover-button newpoll-button'>New Poll</div>
-					<form onSubmit={this.handleClick} className='dashboard-input'>
+					<div onClick={this.handleClick} className='hover-button newpoll-button'>New Poll</div>
+					<form onSubmit={this.handleSubmit} className='dashboard-input'>
 						<input id="code-input" type="text" maxLength='6' placeholder="Input a code" ></input>
 						<input type="submit" value="GO!"></input>
 					</form>

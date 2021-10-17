@@ -54,6 +54,15 @@
 .poll-info{
 	border: white 1px solid;
 }
+.arrow{
+	width: 32px;
+	height: 21px;
+	cursor: pointer;
+}
+.poll-text{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
 .welcome{
 	grid-row-start: 1;
@@ -67,4 +76,12 @@
 	grid-column-end: 3;
 	text-align: center;
 	color: #ffea1d;
+}
+
+@media (max-width: 991.98px){
+	.dashboard{
+		margin-right: 5%;
+		margin-left: 5%;
+		width:  90%;
+	}
 }
