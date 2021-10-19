@@ -67,7 +67,20 @@ textarea:focus{
 	color: white;
 	font-size: 1.17em;
 	cursor: pointer;
-	margin-top: 5px;
+	margin-top: 10px;
+}
+
+.config-master-box{
+	display: grid;
+	grid-template-columns:repeat(2, 1fr);
+	color: white;
+	grid-gap: 5px;
+}
+.config-box{
+	display: flex;
+	align-items: center;
+	background-color: #5a239c;
+
 }
 
 @media (max-width: 991.98px){

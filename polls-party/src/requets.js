@@ -46,6 +46,7 @@ export default class Request{
 		.then((res)=>{
 
 			response = [true,res.data]
+			
 		})
 		.catch((err)=>{
 			
@@ -53,6 +54,23 @@ export default class Request{
 		})
 		
 
+		return response
+	}
+
+	async createPoll(user_token,poll){
+		let response
+		await axios.post('https://polls-party-api.herokuapp.com/api/v1/polls/all',poll,{headers:{'Authorization': `Token ${user_token}`}})
+		.then((res)=>{
+
+			response = [true,res.data]
+			
+		})
+		.catch((err)=>{
+			
+			response = [false,err.response.data]
+		})
+		
+		console.log(response)
 		return response
 	}
 
