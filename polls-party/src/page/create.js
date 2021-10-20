@@ -57,16 +57,16 @@ class Create extends React.Component{
 		this.setState({'loading':true})
 		let config = this.state.config
 		let content = this.state.content
-		content.splice(0,1)
+		
 
 		let mappedConfig = config.map((i)=>{
 				return i !== '' ? i : false
 		})
 
-		let mappedContent = Object.assign({}, content)
+		let mappedContent = Object.assign({}, content.slice(1))
 
 		let poll = {
-			"question" : this.state.content[0],
+			"question" : content[0],
 			"options": mappedContent,
 			"config" : {
 				"all_options" : mappedConfig[0],
