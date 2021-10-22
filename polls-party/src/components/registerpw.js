@@ -21,7 +21,7 @@ export default class PasswordInput extends React.Component {
 	
 	render(){
 		return(
-			<input onChange={this.handleChange} placeholder="Input your password here." id='input-pass' type="password"></input>
+			<input onChange={this.handleChange} placeholder="Input your password here." id='input-pass' className="register-input" type="password"></input>
 		)
 	}
 

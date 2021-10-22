@@ -90,7 +90,7 @@ import { withRouter } from 'react-router-dom';
 						{span}
 						<NameInput verif={this.handleChange}></NameInput>
 						<PasswordInput verif={this.handleChange}></PasswordInput>
-						<input type="submit" value="Send" id='can-send' className='hover-button register-button'></input>	
+						<input type="submit" value="Send" id='can-send' className='register-input register-button'></input>	
 					</form>
 				</div>
 				

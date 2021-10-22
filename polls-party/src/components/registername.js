@@ -30,7 +30,7 @@ export default class NameInput extends React.Component {
 		
 		return(
 			<>
-				<input onChange={this.handleChange} placeholder="Input your name here." id='input-name' type="text"></input>
+				<input onChange={this.handleChange} placeholder="Input your name here." id='input-name' className="register-input" type="text"></input>
 				
 			</>
 			

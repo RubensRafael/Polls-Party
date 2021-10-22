@@ -104,7 +104,7 @@ import { withRouter } from 'react-router-dom';
 						<NameInput verif={this.handleChange}></NameInput>
 						<EmailInput verif={this.handleChange}></EmailInput>
 						<PasswordInput verif={this.handleChange}></PasswordInput>
-						<input type="submit" value="Send" id={clickOpen ? 'can-send' : ''} className='hover-button register-button'></input>	
+						<input type="submit" value="Send" id={clickOpen ? 'can-send' : ''} className='register-input register-button'></input>	
 					</form>
 				</div>
 				

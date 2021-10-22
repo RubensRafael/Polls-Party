@@ -1,4 +1,4 @@
-main{
+.create-box{
 	width: 50%;
 	margin-right: 25%;
 	margin-left: 25%;
@@ -8,7 +8,7 @@ main{
 	flex-direction: column;
 }
 
-h3{
+.create-title{
 	color: white;
 	text-align: center;
 }
@@ -19,12 +19,12 @@ h3{
 	grid-template-rows: 3fr 1fr;
 }
 
-textarea{
+.write-area{
 	background-color: #5a239c;
 	color: white;
 	resize: none;
 }
-textarea:focus{
+.write-area:focus{
 	outline: none;
 	border: solid 1px white;
 }
@@ -38,7 +38,7 @@ textarea:focus{
 	cursor: pointer;
 	display: flex;
 	align-items: center;
-	margin: 5px;
+	margin: 5px; 
     padding: 5px;
 }
 
@@ -83,8 +83,21 @@ textarea:focus{
 
 }
 
+.config-input{
+	background-color: rgba(0,0,0,0);
+	color:  white;
+	outline:  none;
+	border:  none;
+	border-bottom: solid white 1px;
+}
+
+.config-input::placeholder{
+	color: white;
+
+}
+
 @media (max-width: 991.98px){
-	main{
+	.create-box{
 		margin-right: 5%;
 		margin-left: 5%;
 		width:  90%;

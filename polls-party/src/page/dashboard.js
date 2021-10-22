@@ -91,7 +91,7 @@ var arrowIcon = process.env.PUBLIC_URL + 'arrow-icon.svg';
 			</>
 
 
-		}
+		} 
 
 
 		
@@ -103,9 +103,9 @@ var arrowIcon = process.env.PUBLIC_URL + 'arrow-icon.svg';
 				<main className='dashboard'>
 					<h3 className="welcome">See yours created polls</h3>
 					<div onClick={this.handleClick} className='hover-button newpoll-button'>New Poll</div>
-					<form onSubmit={this.handleSubmit} className='dashboard-input'>
-						<input id="code-input" type="text" maxLength='6' placeholder="Input a code" ></input>
-						<input type="submit" value="GO!"></input>
+					<form onSubmit={this.handleSubmit} className='dashboard-form'>
+						<input id="code-input" className='dashboard-input' type="text" maxLength='6' placeholder="Input a code" ></input>
+						<input type="submit" className='dashboard-input go' value="GO!"></input>
 					</form>
 					{display}
 				</main>

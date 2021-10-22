@@ -129,8 +129,8 @@ class Create extends React.Component{
 		for(let i=0;i<this.state.content.length;i++){
 			
 			let div = <>
-				<div className="textarea-box" key={i}>
-					<textarea key="0" index={i} onFocus={this.handleFocus} onChange={this.handleChange} value={this.state.content[i]} disabled={this.state.loading} name=""  cols="30" rows="7"></textarea>
+				<div className="textarea-box" key={i+1}>
+					<textarea  index={i} className="write-area" maxLength="255" onFocus={this.handleFocus} onChange={this.handleChange} value={this.state.content[i]} disabled={this.state.loading} name=""  cols="30" rows="7"></textarea>
 					{ i === this.state.active ? <div className="add-or-del-box">
 						<div index={i} onClick={this.handleAddClick} key="1"className="add-button control-button">
 							<h4 index={i} >Add Option </h4>
@@ -151,8 +151,8 @@ class Create extends React.Component{
 		return(
 			<>
 				<Header></Header>
-				<main>
-					<h3>What will be the question for today?</h3>
+				<main className="create-box">
+					<h3 className="create-title">What will be the question for today?</h3>
 					{display}
 					<section className="config-master-box">
 						<div className="config-box">
@@ -168,7 +168,7 @@ class Create extends React.Component{
 	  						<label for="protect">Makes required an identifier field on your poll.</label>
 						</div>
 						<div className="config-box">
-	  						<input configindex="3" onChange={this.handleConfigChange} value={this.state.config[3]} type="number" min ="0" max="24" id="expires-in" name="expires-in" disabled={this.state.loading}></input>
+	  						<input configindex="3" onChange={this.handleConfigChange} value={this.state.config[3]} className="config-input" type="number" min ="0" max="24" id="expires-in" name="expires-in" disabled={this.state.loading}></input>
 	  						<label for="expires-in">Time to expires and reload the poll's code.</label>
 						</div>
 					</section>

@@ -5,6 +5,7 @@ import Register from './page/register';
 import Login from './page/login';
 import Dashboard from './page/dashboard';
 import Create from './page/create';
+import Poll from './page/poll';
 
 
 function Routers(){
@@ -25,6 +26,9 @@ function Routers(){
                 </Route>
                 <Route path='/create' exact>
                     <Create></Create>
+                </Route>
+                <Route path='/poll/:code' exact>
+                    <Poll></Poll>
                 </Route>
             </Switch>
         </BrowserRouter>

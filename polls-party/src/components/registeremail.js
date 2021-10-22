@@ -33,7 +33,7 @@ export default class EmailInput extends React.Component {
 
 	render(){
 		return(
-			<input  onChange={this.handleChange} placeholder="example@host.com" id='input-email' type="text"></input>
+			<input  onChange={this.handleChange} placeholder="example@host.com" id='input-email' className="register-input" type="text"></input>
 		)
 	}
 
