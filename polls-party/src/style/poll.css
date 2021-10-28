@@ -16,6 +16,13 @@
     margin-top: 20px;
 
 }
+#control-field{
+    background-color: rgba(0,0,0,0);
+    color:  white;
+    outline:  none;
+    border:  none;
+    border-bottom: solid white 1px;
+}
 
 .question-content{}
 
@@ -26,6 +33,9 @@
     color: #5a239c;
     background-color: white;
     text-align: right;
+}
+.poll-error-span{
+    text-align: center;
 }
 
 @media (max-width: 991.98px){

@@ -73,5 +73,43 @@ export default class Request{
 		return response
 	}
 
+	async viewPoll(user_token,poll_token){
+		let config = user_token === null ? {} : {headers:{'Authorization': `Token ${user_token}`}}
+		let response
+		await axios.get(`https://polls-party-api.herokuapp.com/api/v1/polls/${poll_token}/question-options-total_votes-protect`,config)
+		.then((res)=>{
+			
+			response = res.data.poll === undefined ?  [true,res.data] : [true,res.data.poll,res.data.insights]
+			
+		})
+		.catch((err)=>{
+			
+			response = [false,err.response.data]
+			
+		})
+		
+		return response
+	}
+
+	async votePoll(user_token,data){
+		let config = user_token === null ? {} : {headers:{'Authorization': `Token ${user_token}`}}
+		let response
+		await axios.post(`https://polls-party-api.herokuapp.com/api/v1/polls/vote/question-options-total_votes-protect`,data,config)
+		.then((res)=>{
+			
+			response = res.data.poll === undefined ?  [true,res.data] : [true,res.data.poll,res.data.insights]
+			
+			
+		})
+		.catch((err)=>{
+			
+			response = [false,err.response.data]
+			
+		})
+		
+		return response
+	}
+
+
 }
 

@@ -66,6 +66,7 @@ var arrowIcon = process.env.PUBLIC_URL + 'arrow-icon.svg';
 		let polls = this.state.polls
 		let display = [];
 		polls = polls ? this.state.polls : []
+		polls.reverse()
 		if(polls.length === 0){
 			display = <div className="dashboard-warn">Nothing here. Try create a new poll.</div>
 		}else{

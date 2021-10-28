@@ -2,6 +2,8 @@ import React  from 'react';
 import { withRouter } from 'react-router-dom';
 import Header from '../components/header';
 import '../style/poll.css';
+import Request from '../requets';
+import axios from 'axios';
 
 
 
@@ -10,66 +12,160 @@ class Poll extends React.Component{
 
 	constructor(props){
 		super(props)
-		this.state = {'poll':{
-    "id": 2,
-    "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis, velit non volutpat hendrerit, nulla diam volutpat ex, vel ultricies justo nibh finibus nisl. Etiam congue, quam vitae consequat bibendum, nisi lectus egestas magna, vel mollis ex nunc quis turpis. In sit amet elit lorem. Pellentesque aliquam nisi tempus, eleifend orci at, sagittis lorem. Nunc molestie aliquam velit, luctus malesuada nibh porttitor sit amet. Ut sodales scelerisque metus eu condimentum. Sed nec odio scelerisque arcu gravida consequat. Sed pellentesque hendrerit venenatis. Nunc lacinia at elit ac bibendum. Etiam ultrices augue sed rutrum efficitur. Aliquam at luctus nibh. Donec egestas, nisl quis iaculis mattis, tortor mauris ullamcorper leo, a luctus libero diam at nibh. In viverra velit eget venenatis pulvinar.",
-    "total_votes": 6,
-    "options": [
-        {
-            "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis, velit non volutpat hendrerit, nulla diam volutpat ex,",
-            "votes": 1,
-            "id": 3
-        },
-        {
-            "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis, velit non volutpat hendrerit, nulla diam volutpat ex,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis, velit non volutpat hendrerit, nulla diam volutpat ex,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis, velit non volutpat hendrerit, nulla diam volutpat ex,",
-            "votes": 3,
-            "id": 4
-        },
-        {
-            "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis, velit non volutpat hendrerit, nulla diam volutpat ex, vel ultricies justo nibh finibus nisl. Etiam congue, quam vitae consequat bibendum, nisi lectus egestas magna, vel mollis ex nunc quis turpis. In sit amet elit lorem. Pellentesque aliquam nisi tempus, eleifend orci at, sagittis lorem. Nunc molestie aliquam velit, luctus malesuada nibh porttitor sit amet. Ut sodales scelerisque metus eu condimentum. Sed nec odio scelerisque arcu gravida consequat. Sed pellentesque hendrerit venenatis. Nunc lacinia at elit ac bibendum. Etiam ultrices augue sed rutrum efficitur. Aliquam at luctus nibh. Donec egestas, nisl quis iaculis mattis, tortor mauris ullamcorper leo, a luctus libero diam at nibh. In viverra velit eget venenatis pulvinar.",
-            "votes": 2,
-            "id": 5
-        }
-    ],
-    "expires_in": null,
-    "token": {
-        "token": "48EQAF"
-    },
-    "protect": false
-}
-}
+		this.handleVote = this.handleVote.bind(this)
+		this.handleControlChange = this.handleControlChange.bind(this)
+		this.handleRequest = this.handleRequest.bind(this)
+		this.state = {'error':false,'control':'','loading':false}
 	}
+
+	async handleVote(e){
+
+		this.setState({'loading':true})
+		let id = e.target.attributes[0].value
+		let pollCode = this.props.match.params.code
+
+
+
+		if(localStorage.getItem(pollCode) !== null){
+			console.log('retrn')
+			return
+		} 
+		
+
+		let req = new Request()
+		
+		if(this.state.poll.protect === true){
+
+			if(this.state.control.length > 0){
+				let data = {
+					'token': pollCode,
+					'id': id,
+					'control_field': this.state.control
+				}
+				let res = await req.votePoll(localStorage.getItem('token'),JSON.parse(JSON.stringify(data)))
+
+				if(res[0]){
+					localStorage.setItem(pollCode,true)
+					this.setState({'error':false,'loading':false})
+					this.handleRequest()
+				}else{
+					this.setState({'error':res[1].error,'loading':false})
+				}
+				
+				
+
+				
+
+				
+				
+			}else{
+				this.setState({'loading':false})
+				document.getElementById('control-field').focus()
+			}
+		}else{
+			let data = {
+					'token': pollCode,
+					'id': id
+				}
+				let res = await req.votePoll(localStorage.getItem('token'),JSON.parse(JSON.stringify(data)))
+				if(res[0]){
+					localStorage.setItem(pollCode,true)
+					this.setState({'error':false,'loading':false})
+					this.handleRequest()
+				}else{
+					this.setState({'error':res[1].error,'loading':false})
+				}
+
+		}
+
+
+		
+		
+	}
+
+	handleControlChange(e){
+		this.setState({'control':e.target.value})
+	}
+
+	async handleRequest(){
+
+		//let cancelToken = axios.CancelToken;
+		//let source = cancelToken.source();
+		let req = new Request()
+		let res = await req.viewPoll(localStorage.getItem('token'),this.props.match.params.code)
+		res[0] === true ? this.setState({'poll':res[1],'error':false}) : this.setState({'error':res[1].error})
+	}
+	async componentDidMount(){		
+		this.handleRequest()		
+	}
+
+	componentDidUpdate(){
+
+		if(localStorage.getItem(this.props.match.params.code) !== null){
+			setTimeout(this.handleRequest,3000)			
+		}
+		
+	}
+
+
+
+	
 
 	render(){
 		
-		let question = this.state.poll.question
-		let options = this.state.poll.options
-		let totalVotes = this.state.poll.total_votes
-		let checked = localStorage.getItem('checked') !== null  ? true : false;
+
+		var firstLoad;
+
+		try {
+			var question = this.state.poll.question
+			var options = this.state.poll.options
+			var totalVotes = this.state.poll.total_votes
+			var protect = this.state.poll.protect
+			firstLoad = false
+		}catch(e){
+			if (e instanceof TypeError){
+				firstLoad = true
+				//pass
+			}
+		}
+		
+		
+
+
+
+		let checked = localStorage.getItem(this.props.match.params.code) !== null  ? true : false;
 		return(
+
+			
 			<>
 				<Header></Header>
+
+				
 				<main className="poll-box">
-					<div className="question-container">
+				
+				{this.state.error !== false ? <span className="poll-error-span">{this.state.error}</span> : ''}
+					{firstLoad === false ? <> <div className="question-container">
 						<h2 className="question-content"><b>{question}</b></h2>
 					</div>
+					{protect === true ? <>
+						<label for="control-field">Input your name here:</label>
+						<input onChange={this.handleControlChange} disabled={this.state.loading} value={this.state.control} type="text" name="control-field" id="control-field"></input>
+						</> : ''}
 					{options.map((i)=>{
 						let percentage = (i.votes * 100) / totalVotes;
 
 						return(
-							<div option-id={i.id} className="option-container">
+							<div option-id={i.id} onClick={this.handleVote} className="option-container">
 								<h4 option-id={i.id} className="option-content">{i.answer}</h4>
 								{checked ? <div className="option-count" style={{width: percentage + '%'}}><h4><b>{percentage.toFixed(2)}%</b></h4></div> : ''}
 							</div>)
-					})}
+					})} </>: ''}
 				</main>
 			</>
 		)
 	}
 
-	componentDidMount(){
 
-	}
 }
 
 export default withRouter(Poll);
