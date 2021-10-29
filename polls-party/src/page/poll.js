@@ -15,9 +15,13 @@ class Poll extends React.Component{
 		this.handleVote = this.handleVote.bind(this)
 		this.handleControlChange = this.handleControlChange.bind(this)
 		this.handleRequest = this.handleRequest.bind(this)
-		this.state = {'error':false,'control':'','loading':false}
+		this.handleInsightsToggle = this.handleInsightsToggle.bind(this)
+		this.state = {'error':false,'control':'','loading':false,'showInsight':false}
 	}
 
+	handleInsightsToggle(){
+		this.setState({'showInsight':!(this.state.showInsight)})
+	}
 	async handleVote(e){
 
 		this.setState({'loading':true})
@@ -51,12 +55,7 @@ class Poll extends React.Component{
 				}else{
 					this.setState({'error':res[1].error,'loading':false})
 				}
-				
-				
 
-				
-
-				
 				
 			}else{
 				this.setState({'loading':false})
@@ -93,10 +92,18 @@ class Poll extends React.Component{
 		//let source = cancelToken.source();
 		let req = new Request()
 		let res = await req.viewPoll(localStorage.getItem('token'),this.props.match.params.code)
-		res[0] === true ? this.setState({'poll':res[1],'error':false}) : this.setState({'error':res[1].error})
+
+		if(res[0] === true && res.length === 3){
+			this.setState({'poll':res[1],'insights':res[2],'error':false})
+		}else if(res[0] === true && res.length !== 3){
+			this.setState({'poll':res[1],'error':false})
+		}else if(res[0] === false){
+			this.setState({'error':res[1].error})
+		}
 	}
-	async componentDidMount(){		
-		this.handleRequest()		
+	async componentDidMount(){
+		console.log('chama')	
+		this.handleRequest()
 	}
 
 	componentDidUpdate(){
@@ -109,16 +116,19 @@ class Poll extends React.Component{
 
 
 
+
+
 	
 
 	render(){
 		
 
 		var firstLoad;
+		var insights;
 
 		try {
 			var question = this.state.poll.question
-			var options = this.state.poll.options
+			var options = this.state.poll.options.sort((a,b)=>a.id-b.id)
 			var totalVotes = this.state.poll.total_votes
 			var protect = this.state.poll.protect
 			firstLoad = false
@@ -129,8 +139,15 @@ class Poll extends React.Component{
 			}
 		}
 		
-		
+		try{
+			insights = this.state.insights.sort((a,b)=>a.id-b.id)
 
+		}catch(e){
+			if (e instanceof TypeError){
+				insights = false
+			}
+		}
+		
 
 
 		let checked = localStorage.getItem(this.props.match.params.code) !== null  ? true : false;
@@ -143,8 +160,9 @@ class Poll extends React.Component{
 				
 				<main className="poll-box">
 				
-				{this.state.error !== false ? <span className="poll-error-span">{this.state.error}</span> : ''}
-					{firstLoad === false ? <> <div className="question-container">
+					{this.state.error !== false ? <span className="poll-error-span">{this.state.error}</span> : ''}
+
+					{firstLoad === false && this.state.error === false && this.state.showInsight === false ? <> <div className="question-container">
 						<h2 className="question-content"><b>{question}</b></h2>
 					</div>
 					{protect === true ? <>
@@ -160,6 +178,32 @@ class Poll extends React.Component{
 								{checked ? <div className="option-count" style={{width: percentage + '%'}}><h4><b>{percentage.toFixed(2)}%</b></h4></div> : ''}
 							</div>)
 					})} </>: ''}
+
+					{insights ? <div onClick={this.handleInsightsToggle}>A</div> : ''}
+
+					{this.state.showInsight ? <>
+							
+							{insights.map((item)=>{
+								return(
+
+										<table>
+											<tr>
+												<td className="td-header">{item.answer}</td>
+											</tr>
+											<tr>
+												<td className="td-votes">{item.votes} Votes</td>
+											</tr>
+											<div id="div-space"></div>
+											{item.controllers.map((item)=>{
+												return(<tr><td>{item.control_field}</td></tr>)
+											})}
+										</table>
+
+									)
+							})}
+						
+
+					</>: ''}
 				</main>
 			</>
 		)
@@ -170,8 +214,84 @@ class Poll extends React.Component{
 
 export default withRouter(Poll);
 
+	/*
+	[
+    {
+        "answer": "Input an option here.",
+        "votes": 0,
+        "controllers": []
+    },
+    {
+        "answer": "Input an option here.",
+        "votes": 1,
+        "controllers": [
+            {
+                "control_field": "UM"
+            }
+        ]
+    }
+]
+	*/
 
 
 
 
+/*{
+    "question": "SAPDL",
+    "total_votes": 2,
+    "options": [
+        {
+            "answer": "Terceira",
+            "votes": 0,
+            "id": 101
+        },
+        {
+            "answer": "Quarta",
+            "votes": 0,
+            "id": 102
+        },
+        {
+            "answer": "Primeira",
+            "votes": 1,
+            "id": 99
+        },
+        {
+            "answer": "Segunda",
+            "votes": 1,
+            "id": 100
+        }
+    ],
+    "protect": true
+}
 
+
+[
+    {
+        "answer": "Terceira",
+        "votes": 0,
+        "controllers": []
+    },
+    {
+        "answer": "Quarta",
+        "votes": 0,
+        "controllers": []
+    },
+    {
+        "answer": "Primeira",
+        "votes": 1,
+        "controllers": [
+            {
+                "control_field": "ONE"
+            }
+        ]
+    },
+    {
+        "answer": "Segunda",
+        "votes": 1,
+        "controllers": [
+            {
+                "control_field": "SECOND"
+            }
+        ]
+    }
+]*/

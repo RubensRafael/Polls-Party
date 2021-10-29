@@ -37,6 +37,27 @@
 .poll-error-span{
     text-align: center;
 }
+table{
+    text-align: center;
+    width: 100%;
+    background-color:  #5a239c;
+}
+td{
+    overflow-wrap: anywhere;
+    border: 1px solid white;
+}
+
+.td-header{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+}
+.td-votes{
+    border: none;
+}
+#div-space{
+    height: 10px;
+}
 
 @media (max-width: 991.98px){
     .poll-box{
