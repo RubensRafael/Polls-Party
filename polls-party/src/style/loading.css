@@ -1,0 +1,14 @@
+.loading-box{
+	display: flex;
+	justify-content: space-around;
+	position: fixed;
+	height: 100vh;
+	width: 100%;
+	background-color: rgba(90,35,156,0.50);
+	
+}
+.loading-box > img {
+	height:  100px;
+	width: 100px;
+	align-self: center;
+}

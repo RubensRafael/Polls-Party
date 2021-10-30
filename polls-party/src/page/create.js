@@ -3,11 +3,12 @@ import { withRouter } from 'react-router-dom';
 import Header from '../components/header';
 import '../style/create.css';
 import Request from '../requets';
+import addIcon from '../icons/add-icon.svg';
+import deleteIcon from '../icons/delete-icon.svg';
 
 
 
-var addIcon = process.env.PUBLIC_URL + 'add-icon.svg';
-var deleteIcon = process.env.PUBLIC_URL + 'delete-icon.svg';
+
 class Create extends React.Component{
 
 	constructor(props){

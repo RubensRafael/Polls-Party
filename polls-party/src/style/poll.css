@@ -59,6 +59,16 @@ td{
     height: 10px;
 }
 
+
+
+
+.insight-icon{
+    width: 32px;
+    height: 32px;
+    justify-self: center;
+    cursor: pointer;
+}
+
 @media (max-width: 991.98px){
     .poll-box{
         margin-right: 5%;

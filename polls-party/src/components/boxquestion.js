@@ -9,9 +9,9 @@ class BoxQuestion extends React.Component {
 	}
 
 	handleClick(e){
-		//let to = e.target.children[0].lastChild.data.toLowerCase()
+		
 
-		console.log(e.target)
+		
 		let to = e.target.attributes[0].value
 		
 		let routingFunction = (param) => {

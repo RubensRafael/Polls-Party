@@ -1,7 +1,15 @@
 .home-header{
 	display: flex;
-	
+	justify-content: space-between;
 	height: 10vh;
 	background-color: #5a239c;
 	border-bottom: solid 2px #ffea1d;
+}
+a{
+	align-self: center;
+}
+.header-icon{
+	height: 50px;
+    width: 60px;
+    align-self: center;
 }
