@@ -12,4 +12,5 @@ a{
 	height: 50px;
     width: 60px;
     align-self: center;
+    cursor: pointer;
 }
