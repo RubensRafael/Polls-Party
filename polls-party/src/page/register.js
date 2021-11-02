@@ -28,7 +28,8 @@ import { withRouter } from 'react-router-dom';
 
 
 
-
+	// Send the request to create an user, if all field are with 'this.state.field.IsOk' === true.
+	// If an error has ocurred, will be displayed on screen, else, redirect to login.
 	async handleClick(e){
 		e.preventDefault()
 		if(this.state.nameIsOk === true && this.state.emailIsOk === true && this.state.pwIsOk === true){
@@ -40,10 +41,8 @@ import { withRouter } from 'react-router-dom';
 			if(res[0] === true){
 				
 				this.setState({'reqError' : false})
-				let routingFunction = (param) => {
-					this.props.history.push({pathname: `/dashboard`,state: param});
-				}
-				routingFunction()
+				this.props.history.push({pathname: `/login`});
+				
 			}else{
 				this.setState({'reqError': res[1].error})
 			}
@@ -52,8 +51,15 @@ import { withRouter } from 'react-router-dom';
 		}
 		
 	}
+	
+	// this method control the result of onchange event from anothers components, wit hstate lifting
 	handleChange(who,value,error,ok){
-		
+		/* Wait for:
+		who => what is the field,
+		value => his value,
+		error => if his have an error, will be setted here
+		ok => An boolean, if the value can be used in request, or not
+	*/
 		if(who === 'name'){
 			this.setState({'name':value,'nameError':error,'nameIsOk':ok})
 		}else if (who === 'email'){
@@ -64,21 +70,15 @@ import { withRouter } from 'react-router-dom';
 
 	}
 
+	//If user is logged, redirect to dashboard.
 	componentDidMount(){
-		let routingFunction = (param) => {
-			this.props.history.push({
-	    		pathname: `/dashboard`,
-	    		state: param
-			});
-		}
-
 		if(localStorage.getItem('token') !== null){
-    		 routingFunction()
+    		 this.props.history.push({pathname: `/dashboard`});
     	}
 	}
 
 	render(){
-
+		// Define if the submit button will be displayed.
 		let clickOpen
 		if(this.state.nameIsOk === true && this.state.emailIsOk === true && this.state.pwIsOk === true){
 			clickOpen = true
@@ -86,6 +86,8 @@ import { withRouter } from 'react-router-dom';
 			clickOpen = false
 		}
 
+
+		// show errors based on the state of each field, and errors from server
 		let span = <>
 			{this.state.nameError ? <strong><span className="warning-span">{this.state.nameError}</span></strong> : ''}
 			{this.state.emailError ? <strong><span className="warning-span">{this.state.emailError}</span></strong> : ''}

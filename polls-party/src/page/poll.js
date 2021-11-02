@@ -26,6 +26,8 @@ class Poll extends React.Component{
 	handleInsightsToggle(){
 		this.setState({'showInsight':!(this.state.showInsight)})
 	}
+
+
 	async handleVote(e){
 
 		this.setState({'loading':true})
@@ -36,14 +38,14 @@ class Poll extends React.Component{
 
 		if(localStorage.getItem(pollCode) !== null){
 			return
-		} 
+		}// if user already voted, do nothing
 		
 
 		let req = new Request()
 		
-		if(this.state.poll.protect === true){
+		if(this.state.poll.protect === true){// if the polls have protection, get the control field
 
-			if(this.state.control.length > 0){
+			if(this.state.control.length > 0){// if control field is not empty
 				let data = {
 					'token': pollCode,
 					'id': id,
@@ -60,11 +62,11 @@ class Poll extends React.Component{
 				}
 
 				
-			}else{
+			}else{// if is empty, remenber the user
 				this.setState({'loading':false})
 				document.getElementById('control-field').focus()
 			}
-		}else{
+		}else{// if poll not have protection
 			let data = {
 					'token': pollCode,
 					'id': id
@@ -73,7 +75,7 @@ class Poll extends React.Component{
 				if(res[0]){
 					localStorage.setItem(pollCode,true)
 					this.setState({'error':false,'loading':false})
-					this.handleRequest()
+					this.handleRequest()// this call makes the poll update on screen
 				}else{
 					this.setState({'error':res[1].error,'loading':false})
 				}
@@ -89,10 +91,11 @@ class Poll extends React.Component{
 		this.setState({'control':e.target.value})
 	}
 
+
+	// Makes the request to get a poll
 	async handleRequest(){
 
-		//let cancelToken = axios.CancelToken;
-		//let source = cancelToken.source();
+		
 		let req = new Request()
 		let res = await req.viewPoll(localStorage.getItem('token'),this.props.match.params.code)
 
@@ -104,10 +107,14 @@ class Poll extends React.Component{
 			this.setState({'error':res[1].error,'loading':false})
 		}
 	}
+
+
+	// Makes the request to get a poll
 	async componentDidMount(){
 		this.handleRequest()
 	}
 
+	// Makes the request to get a poll, avery time that state update, if user already voted
 	componentDidUpdate(){
 
 		if(localStorage.getItem(this.props.match.params.code) !== null){
@@ -129,14 +136,14 @@ class Poll extends React.Component{
 		var insights;
 
 		try {
-			var question = this.state.poll.question
-			var options = this.state.poll.options.sort((a,b)=>a.id-b.id)
-			var totalVotes = this.state.poll.total_votes
-			var protect = this.state.poll.protect
+			var question = this.state.poll.question // get the question text
+			var options = this.state.poll.options.sort((a,b)=>a.id-b.id)//ordering the options
+			var totalVotes = this.state.poll.total_votes // the percentagem is calculated based on this value
+			var protect = this.state.poll.protect //if true, an input will appear
 			firstLoad = false
 		}catch(e){
 			if (e instanceof TypeError){
-				firstLoad = true
+				firstLoad = true // in the first load the render have nothing to show, because the request is on mount
 				//pass
 			}
 		}
@@ -152,12 +159,13 @@ class Poll extends React.Component{
 		
 
 
-		let checked = localStorage.getItem(this.props.match.params.code) !== null  ? true : false;
+		let checked = localStorage.getItem(this.props.match.params.code) !== null  ? true : false;// check if this user already voted, is useful to show the percentage
 		return(
 
 			
 			<>
 				{this.state.loading ? <Loading></Loading> : ''}
+				
 				<Header></Header>
 
 				
@@ -170,6 +178,7 @@ class Poll extends React.Component{
 					{firstLoad === false && this.state.error === false && this.state.showInsight === false ? <> <div className="question-container">
 						<h2 className="question-content"><b>{question}</b></h2>
 					</div>
+
 					{protect === true ? <>
 						<label htmlFor="control-field">Input your name here:</label>
 						<input onChange={this.handleControlChange} disabled={this.state.loading} value={this.state.control} type="text" name="control-field" id="control-field"></input>
@@ -183,6 +192,7 @@ class Poll extends React.Component{
 								<h4 option-id={i.id} className="option-content">{i.answer}</h4>
 								{checked ? <div className="option-count" style={{width: percentage + '%'}}><h4><b>{percentage.toFixed(2)}%</b></h4></div> : ''}
 							</div>)
+
 					})} </>: ''}
 
 					{insights ? <img className="insight-icon" onClick={this.handleInsightsToggle} src={this.state.showInsight ? notView : view } alt="view-button"></img> : ''}
@@ -206,7 +216,8 @@ class Poll extends React.Component{
 										</table>
 
 									)
-							})}
+								})
+							}
 						
 
 					</>: ''}
@@ -219,85 +230,3 @@ class Poll extends React.Component{
 }
 
 export default withRouter(Poll);
-
-	/*
-	[
-    {
-        "answer": "Input an option here.",
-        "votes": 0,
-        "controllers": []
-    },
-    {
-        "answer": "Input an option here.",
-        "votes": 1,
-        "controllers": [
-            {
-                "control_field": "UM"
-            }
-        ]
-    }
-]
-	*/
-
-
-
-
-/*{
-    "question": "SAPDL",
-    "total_votes": 2,
-    "options": [
-        {
-            "answer": "Terceira",
-            "votes": 0,
-            "id": 101
-        },
-        {
-            "answer": "Quarta",
-            "votes": 0,
-            "id": 102
-        },
-        {
-            "answer": "Primeira",
-            "votes": 1,
-            "id": 99
-        },
-        {
-            "answer": "Segunda",
-            "votes": 1,
-            "id": 100
-        }
-    ],
-    "protect": true
-}
-
-
-[
-    {
-        "answer": "Terceira",
-        "votes": 0,
-        "controllers": []
-    },
-    {
-        "answer": "Quarta",
-        "votes": 0,
-        "controllers": []
-    },
-    {
-        "answer": "Primeira",
-        "votes": 1,
-        "controllers": [
-            {
-                "control_field": "ONE"
-            }
-        ]
-    },
-    {
-        "answer": "Segunda",
-        "votes": 1,
-        "controllers": [
-            {
-                "control_field": "SECOND"
-            }
-        ]
-    }
-]*/

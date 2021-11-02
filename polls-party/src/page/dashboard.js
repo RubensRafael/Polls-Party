@@ -1,10 +1,12 @@
 import React  from 'react';
 import Header from '../components/header';
 import Loading from '../components/loading';
+import PollList from '../components/polllist';
 import Request from '../requets';
 import '../style/dashboard.css'
 import { withRouter } from 'react-router-dom';
-import arrowIcon from '../icons/arrow-icon.svg';
+import code from '../icons/code.svg';
+
 
 
 
@@ -14,12 +16,16 @@ import arrowIcon from '../icons/arrow-icon.svg';
 		super(props)
 		
 		this.handleNewPollClick = this.handleNewPollClick.bind(this)
-		this.handleExactPollClick = this.handleExactPollClick.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
-		
-		this.state = {'none':undefined,'loading':true}
+		this.handleCode = this.handleCode.bind(this)
+		this.state = {'none':undefined,'loading':true,'showCode' : false}
 	}
 
+	handleCode(){
+		this.setState({'showCode':true})
+	}
+
+	// redirect to exact poll, based on code on the text input.
 	handleSubmit(e){
 		this.props.history.push({
 	    		pathname: `/poll/${e.target[0].value.toUpperCase()}`,
@@ -27,23 +33,12 @@ import arrowIcon from '../icons/arrow-icon.svg';
 		
 	}
 
-	handleExactPollClick(e){
-		this.props.history.push({
-	    		pathname: `/poll/${e.target.attributes[0].value}`,
-			});
-	}
 
+	// Redirect to create a new poll
 	handleNewPollClick(e){
-		let routingFunction = (param) => {
-			this.props.history.push({
+		this.props.history.push({
 	    		pathname: `/create`,
-	    		state: param
-			});
-		}
-		routingFunction()
-    	
-
-		
+			});		
 		
 	}
 
@@ -51,62 +46,19 @@ import arrowIcon from '../icons/arrow-icon.svg';
 
 	async componentDidMount(){
 
-		
-		let routingFunction = (param) => {
-			this.props.history.push({
-	    		pathname: `/login`,
-	    		state: param
-			});
-		}
-
+	// if user is not logged, redirect to login
 		if(localStorage.getItem('token') === null){
-    		 routingFunction()
+    		 this.props.history.push({pathname: `/login`});
     	}
 	
-
+    	// makes a request to receive a list of polls created by user
 		let req = new Request()
 		let res = await req.listPolls(localStorage.getItem('token'))
-		
 		res[0] === true ? this.setState({'polls':res[1],'error':false,'loading':false}) : this.setState({'error':true, 'polls': false,'loading':false})
 	}
 
 
 	render(){
-
-		
-
-		let polls = this.state.polls
-		let display = [];
-		polls = polls ? this.state.polls : []
-		polls.reverse()
-		if(polls.length === 0){
-			display = <div className="dashboard-warn">Nothing here. Try create a new poll.</div>
-		}else{
-			display =<>
-				{
-					polls.map((item,index)=>{
-
-					let question = 
-							
-							<div  className={index === 0 ?"list-item first-item":"list-item"}>
-								<p className="poll-info poll-text">{item.question}</p>
-								<div className="poll-info">{item.token.token}</div>
-								<div className="poll-info">{item.total_votes}</div>
-								<img token={item.token.token} onClick={this.handleExactPollClick} src={arrowIcon} alt="arrow icon" className="poll-info arrow"></img>
-							</div>
-						
-
-					return question
-					})
-				}
-
-
-			</>
-
-
-		} 
-
-
 		
 
 
@@ -121,7 +73,13 @@ import arrowIcon from '../icons/arrow-icon.svg';
 						<input id="code-input" className='dashboard-input' type="text" maxLength='6' placeholder="Input a code" ></input>
 						<input type="submit" className='dashboard-input go' value="GO!"></input>
 					</form>
-					{display}
+					<PollList polls={this.state.polls}></PollList>
+					<div onClick={this.handleCode} id='api-span'>
+						{this.state.showCode === false ? <img src={code} alt="code"></img>: <>
+						<span>Your API Token is: {localStorage.getItem('token')}</span>
+						<a target='_blank' rel='noreferrer'  href="https://github.com/RubensRafael/polls-party-api">Learn more here</a></>}
+					</div>
+					
 				</main>
 			</>
 		)

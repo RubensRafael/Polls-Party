@@ -6,13 +6,7 @@ import Header from '../components/header';
 import '../style/home.css';
 
 
-/*class Any extends React.Component {
-	render(){
-		return(
 
-		)
-	}
-}*/
 
 var back = process.env.PUBLIC_URL + 'teste.gif';
 class Home extends React.Component{
@@ -34,17 +28,11 @@ class Home extends React.Component{
 			</>
 		)
 	}
-
-	componentDidMount(){
-		let routingFunction = (param) => {
-			this.props.history.push({
-	    		pathname: `/dashboard`,
-	    		state: param
-			});
-		}
+	//If user is logged, redirect to dashboard
+	componentDidMount(){		
 
 		if(localStorage.getItem('token') !== null){
-    		 routingFunction()
+    		 this.props.history.push({pathname: `/dashboard`});
     	}
 	}
 }

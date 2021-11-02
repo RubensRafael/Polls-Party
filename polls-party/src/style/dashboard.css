@@ -96,6 +96,30 @@
 	cursor: pointer;
 }
 
+#api-span{
+	color: white;
+	text-align: center;
+	align-self: center;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+}
+
+#api-span > a {
+	color: white;
+}
+
+#api-span > img {
+	width: 32px;
+	height: 32px;
+	align-self: center;
+	cursor: pointer;
+
+}
+
+
 @media (max-width: 991.98px){
 	.dashboard{
 		margin-right: 5%;

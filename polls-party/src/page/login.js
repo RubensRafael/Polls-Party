@@ -26,22 +26,20 @@ import { withRouter } from 'react-router-dom';
 
 
 
-
+	// Makes a request to login the user, if have sucess, 
+	// the token will be save on localstorage, and he is redirect to dashboard
 	async handleClick(e){
 		
 			e.preventDefault()
 			let req = new Request()
 			let res = await req.login(this.state.name,this.state.pw)
-			console.log(res)
+			
 
 			if(res[0] === true){
 				
 				this.setState({'reqError' : false})
 				localStorage.setItem('token',res[1].token)
-				let routingFunction = (param) => {
-					this.props.history.push({pathname: `/dashboard`,state: param});
-				}
-				routingFunction()
+				this.props.history.push({pathname: `/dashboard`})				
 			}else{
 				this.setState({'reqError': res[1].non_field_errors})
 			}		
@@ -49,7 +47,10 @@ import { withRouter } from 'react-router-dom';
 
 
 	handleChange(who,value,error,ok){
-		
+		/* Wait for:
+		who => what is the field,
+		value => his value,
+	*/
 		if(who === 'name'){
 			this.setState({'name':value})
 		}else if(who === 'pw'){
@@ -59,23 +60,17 @@ import { withRouter } from 'react-router-dom';
 	}
 
 
+	//If user is logged, redirect to dashboard.
 	componentDidMount(){
-		let routingFunction = (param) => {
-			this.props.history.push({
-	    		pathname: `/dashboard`,
-	    		state: param
-			});
-		}
-
 		if(localStorage.getItem('token') !== null){
-    		 routingFunction()
+    		 this.props.history.push({pathname: `/dashboard`});
     	}
 	}
 
 	render(){
 
 
-
+		// show errors from server
 		let span = <>
 			{this.state.reqError ? <strong><span className="warning-span">{this.state.reqError}</span></strong> : ''}
 		</>
