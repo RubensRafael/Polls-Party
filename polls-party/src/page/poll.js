@@ -203,16 +203,18 @@ class Poll extends React.Component{
 								return(
 
 										<table>
-											<tr>
-												<td className="td-header">{item.answer}</td>
-											</tr>
-											<tr>
-												<td className="td-votes">{item.votes} Votes</td>
-											</tr>
-											<div id="div-space"></div>
-											{item.controllers.map((item)=>{
-												return(<tr><td>{item.control_field}</td></tr>)
-											})}
+											<tbody>
+												<tr>
+													<td className="td-header">{item.answer}</td>
+												</tr>
+												<tr>
+													<td className="td-votes">{item.votes} Votes</td>
+												</tr>
+												<div id="div-space"></div>
+												{item.controllers.map((item)=>{
+													return(<tr><td>{item.control_field}</td></tr>)
+												})}
+											</tbody>
 										</table>
 
 									)
