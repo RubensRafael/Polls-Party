@@ -49,7 +49,6 @@ td{
 
 .td-header{
     text-overflow: ellipsis;
-    white-space: nowrap;
     border: none;
 }
 .td-votes{
