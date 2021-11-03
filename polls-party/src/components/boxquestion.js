@@ -30,7 +30,7 @@ class BoxQuestion extends React.Component {
 				<div value='register' onClick={this.handleClick} className="hover-button home-button">
 					<h3 value='register'>REGISTER</h3>
 				</div>
-				<div value='login'onClick={this.handleClick} className="hover-button home-button">
+				<div value='login' onClick={this.handleClick} className="hover-button home-button">
 					<h3 value='register'>LOGIN</h3>
 				</div>
 			</div>
