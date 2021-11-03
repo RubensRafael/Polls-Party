@@ -9,6 +9,11 @@ class Header extends React.Component {
 	constructor(props){
 		super(props);
 		this.handleLogout = this.handleLogout.bind(this);
+		this.handleGoToDashboard = this.handleGoToDashboard.bind(this);
+	}
+	handleGoToDashboard(){
+		this.props.history.push({pathname:'dashboard'})
+	
 	}
 
 	handleLogout(){
@@ -20,7 +25,8 @@ class Header extends React.Component {
 			<header className="home-header">
 				<a href="https://github.com/RubensRafael/Polls-Party"><img className="header-icon" src={github} alt="github-repo"></img></a>
 				
-				<img src={logo} alt="logo"></img>
+				<img onClick={this.handleGoToDashboard} src={logo} alt="logo"></img>
+
 				{localStorage.getItem('token') !== null ? <img onClick={this.handleLogout} className="header-icon" src={logout} alt="logout"></img>: <div></div>}
 			</header>
 
